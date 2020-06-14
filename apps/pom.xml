@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <parent>
+        <artifactId>relocationsample</artifactId>
+        <groupId>relocationsample</groupId>
+        <version>1.0</version>
+    </parent>
+    <modelVersion>4.0.0</modelVersion>
+
+    <artifactId>apps</artifactId>
+    <packaging>pom</packaging>
+
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-invoker-plugin</artifactId>
+                <version>3.0.1</version>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>install</goal>
+                            <!-- this is run in one or more of several executions, to configure property values -->
+                            <!--<goal>integration-test</goal>-->
+                            <goal>verify</goal>
+                        </goals>
+                    </execution>
+                    <!--
+                    None of these samples bring in c.g.g gwt 2.10, just c.g.g 2.9 and o.g 2.10,
+                    testing just the case of unmaintained/stable libraries being used with
+                    actively updated libraries.
+                    -->
+                    <execution>
+                        <id>c.g.g 2.9 to o.g 2.10</id>
+                        <goals>
+                            <goal>integration-test</goal>
+                        </goals>
+                        <configuration>
+                            <!-- TODO build more "libraries" that uses these in their version string, so we test more permutations quickly -->
+                            <filterProperties>
+                                <oldGwtGroupId>com.google.gwt</oldGwtGroupId>
+                                <oldGwtVersion>2.9.0</oldGwtVersion>
+                                <newGwtGroupId>org.gwtproject</newGwtGroupId>
+                                <newGwtVersion>2.10.0</newGwtVersion>
+                            </filterProperties>
+                        </configuration>
+                    </execution>
+                    <!--
+                    Next we test the easier case of mixing c.g.g 2.9 and c.g.g 2.10, and c.g.g
+                    2.10 with o.g 2.10. Both of these cases are expected to always work
+                    seamlessly, since c.g.g should always pick a consistent version, and 2.10
+                    should have consistent relocations
+                    -->
+                    <!--<execution>
+                        <id>c.g.g 2.10 to o.g 2.10</id>
+                        <goals>
+                            <goal>integration-test</goal>
+                        </goals>
+                        <configuration>
+                            <filterProperties>
+                                <oldGwtGroupId>com.google.gwt</oldGwtGroupId>
+                                <oldGwtVersion>2.10.0</oldGwtVersion>
+                                <newGwtGroupId>org.gwtproject</newGwtGroupId>
+                                <newGwtVersion>2.10.0</newGwtVersion>
+                            </filterProperties>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>c.g.g 2.9 to c.g.g 2.10</id>
+                        <goals>
+                            <goal>integration-test</goal>
+                        </goals>
+                        <configuration>
+                            <filterProperties>
+                                <oldGwtGroupId>com.google.gwt</oldGwtGroupId>
+                                <oldGwtVersion>2.9.0</oldGwtVersion>
+                                <newGwtGroupId>com.google.gwt</newGwtGroupId>
+                                <newGwtVersion>2.10.0</newGwtVersion>
+                            </filterProperties>
+                        </configuration>
+                    </execution>-->
+                </executions>
+                <configuration>
+                    <cloneProjectsTo>${project.build.directory}/it-tests</cloneProjectsTo>
+                    <localRepositoryPath>${project.build.directory}/it-repo</localRepositoryPath>
+                    <!--<settingsFile>src/it/settings.xml</settingsFile>-->
+                </configuration>
+            </plugin>
+
+        </plugins>
+    </build>
+</project>

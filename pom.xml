@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>relocationsample</groupId>
+    <artifactId>relocationsample</artifactId>
+    <version>1.0</version>
+
+    <packaging>pom</packaging>
+    <description>
+        Parent project to install different "gwt" versions, some of which will
+        relocate to others, some sample libraries, and sample apps. All but the
+        apps are made to be deployed to a repo, and the apps will build as tests
+        off of those repos.
+    </description>
+
+    <modules>
+        <!-- com.google.gwt releases of gwt - multiple versions exist in here, one as a relocation, one as an "old" release -->
+        <module>c.g.g</module>
+        <!-- org.gwtproject releases of gwt - for now, just a single release, but easy to add more later -->
+        <module>o.g</module>
+        <!-- libraries which use the versions above -->
+        <module>libraries</module>
+        <!-- apps which use the libraries/sdks above -->
+        <module>apps</module>
+    </modules>
+
+</project>

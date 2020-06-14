@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <parent>
+        <artifactId>relocationsample</artifactId>
+        <groupId>relocationsample</groupId>
+        <version>1.0</version>
+    </parent>
+    <modelVersion>4.0.0</modelVersion>
+
+    <artifactId>libraries</artifactId>
+    <packaging>pom</packaging>
+
+    <modules>
+        <!-- default is to include both gwt-user and gwt-dev, tests later might try mixing and matching -->
+        <module>library-with-new-gwt</module>
+        <module>library-with-old-gwt</module>
+        <!--<module>library-with-bom-and-old-gwt</module>-->
+        <!--<module>library-with-bom-and-new-gwt</module>-->
+        <!--<module>library-with-transitive-old-gwt</module>-->
+        <!--<module>library-with-transitive-new-gwt</module>-->
+    </modules>
+
+</project>

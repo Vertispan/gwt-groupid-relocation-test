@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>relocationsample.com.google.gwt</groupId>
+    <artifactId>gwt</artifactId>
+    <version>2.10.0</version>
+    <packaging>pom</packaging>
+
+    <!-- It doesn't appear that this by itself works, since it means that we aren't manging c.g.g versions upward -->
+<!--
+    <distributionManagement>
+        <relocation>
+            <groupId>relocationsample.org.gwtproject</groupId>
+        </relocation>
+    </distributionManagement>
+-->
+
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>${project.groupId}</groupId>
+                <artifactId>gwt-user</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>${project.groupId}</groupId>
+                <artifactId>gwt-dev</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>${project.groupId}</groupId>
+                <artifactId>gwt-servlet</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+
+    <modules>
+        <module>gwt-user</module>
+        <module>gwt-dev</module>
+        <module>gwt-servlet</module>
+    </modules>
+</project>

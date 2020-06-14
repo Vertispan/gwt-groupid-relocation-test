@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>relocationsample</groupId>
+    <artifactId>app-with-bom-new-gwt-old-lib</artifactId>
+    <version>1.0</version>
+
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <!-- explicitly using old groupid, new version for now, parameterization may not pan out -->
+                <groupId>relocationsample.@oldGwtGroupId@</groupId>
+                <artifactId>gwt</artifactId>
+                <version>@newGwtVersion@</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+            <!--
+            it appears that no matter what we include above, two BOMs in an app are required to survive this
+            update? that is, the above is not sufficient, until this is also added, the build will fail.
+            -->
+            <dependency>
+                <groupId>relocationsample.@newGwtGroupId@</groupId>
+                <artifactId>gwt</artifactId>
+                <version>@newGwtVersion@</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+
+    <dependencies>
+        <dependency>
+            <groupId>relocationsample.@newGwtGroupId@</groupId>
+            <artifactId>gwt-user</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>relocationsample</groupId>
+            <artifactId>library-with-old-gwt</artifactId>
+            <version>1.0</version>
+        </dependency>
+    </dependencies>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.basepom.maven</groupId>
+                <artifactId>duplicate-finder-maven-plugin</artifactId>
+                <version>1.3.0</version>
+                <executions>
+                    <execution>
+                        <id>default</id>
+                        <phase>test</phase>
+                        <goals>
+                            <goal>check</goal>
+                        </goals>
+                    </execution>
+                </executions>
+                <configuration>
+                    <failBuildInCaseOfEqualContentConflict>true</failBuildInCaseOfEqualContentConflict>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+
+</project>
